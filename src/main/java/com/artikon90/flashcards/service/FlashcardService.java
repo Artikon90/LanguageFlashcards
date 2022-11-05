@@ -25,7 +25,7 @@ public class FlashcardService {
 
     public boolean saveCard(Flashcard card) {
         var savedEntity = repository.save(card);
-        return savedEntity.equals(card);
+        return repository.existsById(savedEntity.getCard_id());
     }
 
     public List<Flashcard> getAllCards() {
@@ -33,16 +33,16 @@ public class FlashcardService {
     }
 
     public boolean isAlreadyExists(String langWord, String nativeWord) {
-        return repository.existsByLang_wordAndNative_word(langWord, nativeWord);
+        return repository.existsByNativeWordAndLang(nativeWord, langWord);
     }
 
     @Transactional
     public boolean updateCard(Flashcard updatedCard) {
         var oldCard = this.getCard(updatedCard.getCard_id());
-        // проверяю, что полученный энтити не -1, т.е такая запись уже есть в БД
-        if (oldCard.getCard_id() > 0) {
-            oldCard.setLang_word(updatedCard.getLang_word());
-            oldCard.setNative_word(updatedCard.getNative_word());
+        // проверяю, что полученный энтити не -1, т.е полученный объект не ERROR
+        if (repository.existsById(updatedCard.getCard_id()) && oldCard.getCard_id() > 0) {
+            oldCard.setLang(updatedCard.getLang());
+            oldCard.setNativeWord(updatedCard.getNativeWord());
             return saveCard(updatedCard);
         } else {
             return false;
