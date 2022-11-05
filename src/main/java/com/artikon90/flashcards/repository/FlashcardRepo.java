@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FlashcardRepo extends JpaRepository<Flashcard, Long> {
 
-    boolean existsByLang_wordAndNative_word(String lang_word, String native_word);
+    boolean existsByNativeWordAndLang(String nativeWord, String lang);
 
 }
