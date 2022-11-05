@@ -1,21 +1,20 @@
 package com.artikon90.flashcards.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "flashcard")
 public class Flashcard {
 
+    public static final Flashcard ERROR = new Flashcard(-1, "", "");
+
     @Id
     @Column(name = "card_id")
+    @Setter(AccessLevel.NONE)
     private long card_id;
 
     @Column(name = "lang_word")
