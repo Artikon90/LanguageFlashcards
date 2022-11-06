@@ -23,6 +23,7 @@ public class FlashcardService {
         return repository.findById(id).orElse(Flashcard.ERROR);
     }
 
+    @Transactional
     public boolean saveCard(Flashcard card) {
         var savedEntity = repository.save(card);
         return repository.existsById(savedEntity.getCard_id());
@@ -47,5 +48,11 @@ public class FlashcardService {
         } else {
             return false;
         }
+    }
+
+    @Transactional
+    public boolean deleteCard(long id) {
+        repository.deleteById(id);
+        return !repository.existsById(id);
     }
 }

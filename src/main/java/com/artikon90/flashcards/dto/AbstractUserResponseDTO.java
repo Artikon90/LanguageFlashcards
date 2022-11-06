@@ -9,5 +9,18 @@ import lombok.Setter;
 @AllArgsConstructor
 public abstract class AbstractUserResponseDTO {
     private String status;
-    private String context;
+    private String content;
+    public enum Status {
+        OK("OK"),
+        ERROR("ERROR"),
+        INVALID("INVALID");
+
+        private final String value;
+        Status(String value) {
+            this.value = value;
+        }
+        public String get() {
+            return value;
+        }
+    }
 }
