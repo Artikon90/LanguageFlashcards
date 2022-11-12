@@ -10,7 +10,11 @@ import javax.persistence.*;
 @Table(name = "flashcard")
 public class Flashcard {
 
-    public static final Flashcard ERROR = new Flashcard(-1, "", "");
+    public static final Flashcard ERROR = new Flashcard(-1,
+            "",
+            "",
+            (short)-1,
+            false);
 
     public Flashcard(String lang, String nativeWord) {
         this.lang = lang;
@@ -29,4 +33,9 @@ public class Flashcard {
     @Column(name = "native_word")
     private String nativeWord;
 
+    @Column(name = "attempt")
+    private short attempt;
+
+    @Column(name = "isFailed")
+    private boolean isFailed;
 }
