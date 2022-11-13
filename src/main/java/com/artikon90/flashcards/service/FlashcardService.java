@@ -50,6 +50,10 @@ public class FlashcardService {
         }
     }
 
+    public long getCardsCount() {
+        return repository.count();
+    }
+
     @Transactional
     public boolean deleteCard(long id) {
         repository.deleteById(id);
